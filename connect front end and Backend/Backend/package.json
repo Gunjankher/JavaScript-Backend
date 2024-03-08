@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "script.js",
+  "type": "module",
   "scripts": {
-    "test": "node script.js"
+    "start": "node script.js"
   },
   "author": "",
   "license": "ISC"
