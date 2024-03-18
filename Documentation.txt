@@ -28,7 +28,7 @@
  (i) = nodemon(it automatically restarts the server when file saved),
               (install the dev dependency cuz it only need in devlopemnt no need in production )
  (i) = npm i -D nodemon             
-
+(i) = dotenv
  - make this changes to the script in json =  "dev": "nodemon  -r dotenv/config --experimental-json-modules src /index.js"
 
 
@@ -54,6 +54,54 @@ preiiter files == .prettierrc ,
 /. vscode
 /node_modules
 /dist
+
+
+
+********************************** SECTION 1.3(Database conncection)********************************************
+
+watch video for the mongodb atlas conncection 
+
+- env 
+ PORT = 800
+ MONGODB_URI = YOUR URI OF MONGODB 
+
+ constants - 
+ export const DB_NAME = "videotube"
+ (i)= mongoose
+ (i)  =express
+
+/NOTES = when you are trying to conncect with the data base two things need to be considered 
+
+1. database is always on another continatent
+2. wrap it into a try catch syntax for error handling 
+
+
+==> first approach 
+in the index.js file
+by using the iffe (imidiatialy invoke function)
+
+;(async ()=>{})()    use semicoloumn it is recommended for cleaning purpose
+and use a try catch 
+ mongoose.connect(`${process.env.MONGODB_URI}/${DB_NAME}`) // DB name is also required 
+ sometimes express app is also inatlize in same file
+
+  app.on("error", (error)=>{
+        console.log("error", error);
+        throw error
+    })
+
+app.listen(process.env.PORT ,()=>{
+    console.log(`App is listening in Port ${process.env.PORT}`);
+})
+ ==> second approach 
+
+ make the function on the db folder named  index.js 
+
+ make a simple function and code as above for db 
+ 
+ in catch part make -  process.exit(1)
+
+
 
 
 
