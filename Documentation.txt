@@ -1,3 +1,60 @@
 // THE DOCMUMENTATION OF THE FULLY FLAGED BACKEND PROJECT
+=> folder
+==> Heading
+== files
+/Notes = notes imp
+() = -explanation of code 
+- file changes
+(i) = package installation 
+
+
+*************************  SECTION 1.1(Project setup ) *******************************
+==> setup 1
+ *inatlize the github repo and setup repo 
+ *inatlize the node files 
+
+
+ ******************************* SECTION 1.2(making Folders and files) ***********************
+ ==> files and Folders
+/Notes :- for the uploadation of images we are gonna use the third party service like (aws ,azure ,cloudnry,) but we also have to temporary save the images and files into our own server in case the service crashrd we have the access of the images and then upload it later 
+=> Folder(root)=>public=> temp == .gitkeep
+=> root === .gitignore (to ingonre the sensitive files and folder to upload on github)
+=> root === .env (imp dont upload to github as it contains sensitive info)
+=> root === .env.sample (for github)
+=> root =>  src=== app.js ,contstants.js, index.js(touch{to make files direct from shell} app.js index.js constants.js)
+
+==> PKG.JSON CHANGES
+ - "type" : "module" (we are using this cuz with this we can use the import statmennt insted of require helps with code consistency)
+ (i) = nodemon(it automatically restarts the server when file saved),
+              (install the dev dependency cuz it only need in devlopemnt no need in production )
+ (i) = npm i -D nodemon             
+
+ - make this changes to the script in json =  "dev": "nodemon  -r dotenv/config --experimental-json-modules src /index.js"
+
+
+=> making folders 
+
+make the folder with mkdir(controllers , db , middlewares , models routes utlies)
+
+(i) => preiiter with -D 
+preiiter files == .prettierrc , 
+{
+    "singleQuote" : false ,
+    "bracketspacing" : true,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "semi": true
+}
+
+ == preiiterignore, 
+ *.env
+.env
+.env.*
+
+/. vscode
+/node_modules
+/dist
+
+
 
 
