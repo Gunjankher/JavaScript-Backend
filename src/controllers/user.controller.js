@@ -111,7 +111,39 @@ const loginUser = asyncHandlar (async (req, res)=>{
   // chaeck from database => find the user
   // password check - 
   // acess and refesh token 
-  
+  // send coockies of tokens
+
+
+  const {email, username, password} = req.body
+
+if(!username || !email){
+  throw new ApiError(400 , "username or email is required")
+ 
+}
+
+  const user = await User.findOne(
+  {
+    $or :[{username}, {email}]
+  }
+)
+
+if(!user) {
+  throw new ApiError(404 , "user does not exist")
+}
+
+ const isPasswordValid = await user.isPasswordCorrect(password)
+
+ if(!isPasswordValid) {
+  throw new ApiError(404 , "password is incorrect")
+}
+
+
+
+
+
+
+
+
 
 })
 
