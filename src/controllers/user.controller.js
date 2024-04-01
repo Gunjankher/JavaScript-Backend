@@ -104,4 +104,20 @@ return res.status(201).json(
 } )
 
 
-export {registerUser}
+const loginUser = asyncHandlar (async (req, res)=>{
+
+  // req data from user
+  // validate data username or email
+  // chaeck from database => find the user
+  // password check - 
+  // acess and refesh token 
+  
+
+})
+
+
+export {
+  registerUser,
+  loginUser
+
+}
