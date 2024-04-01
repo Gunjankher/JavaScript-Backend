@@ -87,7 +87,7 @@ expiresIn : process.env.ACCESS_TOKEN_EXPIRY
 }
 userSchema.methods.generateRefrehToken = function(){
 
-    jwt.sign(
+    Jwt.sign(
         { _id :this._id,
           email : this.email,
           username : this.username,
