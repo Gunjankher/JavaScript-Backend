@@ -5,6 +5,23 @@ import  {uploadOnCloudnary} from '../utils/cloudinary.js'
 import { ApiResponse } from '../utils/ApiResponse.js'
 import { application } from 'express'
 
+
+const generateAcessAndRefeshToken = async(userId)=>{
+  try {
+    const user = await User.findById(userId)
+   const acessToken =  user.generateAcessToken()
+    const refreshToken = user.generateRefrehToken()
+  } catch (error) {
+    throw new ApiError(500 , "Something Went wrong went generating acess and refesh token")
+  }
+}
+
+user.refreshToken = refreshToken
+ await user.save({ValidateBeforeSave :false})
+
+return {acessToken , refreshToken}
+
+
 const registerUser = asyncHandlar(async (req,res)=>{
   // res.status(200).json({
   //   message : "finally done it"
@@ -134,15 +151,40 @@ if(!user) {
  const isPasswordValid = await user.isPasswordCorrect(password)
 
  if(!isPasswordValid) {
-  throw new ApiError(404 , "password is incorrect")
+  throw new ApiError(401, "password is incorrect")
 }
 
 
+const {acessToken , refreshToken}= await generateAcessAndRefeshToken(user._id)
 
 
+const loggedInUser = await User.findById(user._id)
+select("-password -refershToken")
+
+const options = {
+  httpOnly :true,
+  secure : true
+}
 
 
+return res
+.status(200)
+.cookie("acessToekn", acessToken, options)
+.cookie("refreshToken", refreshToken, options)
+.json(
+  new ApiResponse(
+    200,
+    {
+      user : loggedInUser,acessToken,
+      refreshToken
+    },
+"User logged in Sucessfully"
+  )
+)
+})
 
+
+const logoutUser = asyncHandlar(async (req,res)=>{
 
 
 })
@@ -150,6 +192,7 @@ if(!user) {
 
 export {
   registerUser,
-  loginUser
+  loginUser,
+  logoutUser
 
 }
