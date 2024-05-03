@@ -128,7 +128,7 @@ const loginUser = asyncHandlar (async (req, res)=>{
   // chaeck from database => find the user
   // password check - 
   // acess and refesh token 
-  // send coockies of tokens
+  // send cookies of tokens
 
 
   const {email, username, password} = req.body
@@ -188,7 +188,7 @@ const logoutUser = asyncHandlar(async (req,res)=>{
 
 
 })
-
+ 
 
 export {
   registerUser,
