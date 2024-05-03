@@ -169,7 +169,7 @@ const options = {
 
 return res
 .status(200)
-.cookie("acessToekn", acessToken, options)
+.cookie("acessTokenn", acessToken, options)
 .cookie("refreshToken", refreshToken, options)
 .json(
   new ApiResponse(
