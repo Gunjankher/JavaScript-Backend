@@ -11,15 +11,15 @@ const generateAcessAndRefeshToken = async(userId)=>{
     const user = await User.findById(userId)
    const acessToken =  user.generateAcessToken()
     const refreshToken = user.generateRefrehToken()
+    user.refreshToken = refreshToken
+     await user.save({ValidateBeforeSave :false})
+    
+    return {acessToken , refreshToken}
   } catch (error) {
     throw new ApiError(500 , "Something Went wrong went generating acess and refesh token")
   }
 }
 
-user.refreshToken = refreshToken
- await user.save({ValidateBeforeSave :false})
-
-return {acessToken , refreshToken}
 
 
 const registerUser = asyncHandlar(async (req,res)=>{
@@ -132,8 +132,8 @@ const loginUser = asyncHandlar (async (req, res)=>{
 
 
   const {email, username, password} = req.body
-
-if(!username || !email){
+console.log(email);
+if (!(username || email)){
   throw new ApiError(400 , "username or email is required")
  
 }
