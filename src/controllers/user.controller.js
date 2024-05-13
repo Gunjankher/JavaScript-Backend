@@ -169,7 +169,7 @@ const options = {
 
 return res
 .status(200)
-.cookie("acessTokenn", acessToken, options)
+.cookie("acessToken", acessToken, options)
 .cookie("refreshToken", refreshToken, options)
 .json(
   new ApiResponse(
@@ -185,7 +185,29 @@ return res
 
 
 const logoutUser = asyncHandlar(async (req,res)=>{
+ await User.findByIdAndUpdate(
+req.user._id,
+{
+  $set:{
+    refreshToken : undefined
+  }
+},
+{
+  new : true
+}
 
+)
+
+const options = {
+  httpOnly :true,
+  secure : true
+}
+
+return res 
+.status(200)
+.clearCookie("acessToken", options)
+.clearCookie("refreshToken", options)
+.json(new ApiResponse(200, {}, "User Logged Out"))
 
 })
  
