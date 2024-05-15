@@ -11,7 +11,7 @@ import jwt from "jsonwebtoken";
 
 
 
- export const varifyJWT = asyncHandlar(async (req,res, next)=>{
+ export const varifyJWT = asyncHandlar(async (req,_, next)=>{
  try {
     const token = req.cookies?.acessToken || req.header
    ("Authorization")?.replace("Bearer", "")

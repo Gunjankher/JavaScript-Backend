@@ -1,9 +1,10 @@
 import {asyncHandlar} from '../utils/asyncHandlar.js'
 import {ApiError} from '../utils/ApiError.js'
-import {User} from '../models/user.model.js'
+import { User } from '../models/user.model.js'
 import  {uploadOnCloudnary} from '../utils/cloudinary.js'
 import { ApiResponse } from '../utils/ApiResponse.js'
-import { application } from 'express'
+import jwt from 'jsonwebtoken'
+import mongoose from 'mongoose'
 
 
 const generateAcessAndRefeshToken = async(userId)=>{
@@ -40,13 +41,13 @@ const registerUser = asyncHandlar(async (req,res)=>{
 
 
 // get data from front-end
-const {fullname,email,username,password} = req.body
+const {fullName,email,username,password} = req.body
 console.log("email", email);
 
 // validation
 
  if(
-  [fullname,email,username,password].some((field) =>
+  [fullName,email,username,password].some((field) =>
   field?.trim()=== "")
  ){
   throw new ApiError(400 , "All fields are required")
@@ -94,7 +95,7 @@ if(!avatar){
  // create object and create entry in database
 
   const user = await User.create({
-  fullname,
+  fullName,
   avatar : avatar.url,
   coverImage : coverImage?.url || "",
   email,
@@ -132,8 +133,9 @@ const loginUser = asyncHandlar (async (req, res)=>{
 
 
   const {email, username, password} = req.body
-console.log(email);
-if (!(username || email)){
+  console.log(email);
+
+if (!username && !email){
   throw new ApiError(400 , "username or email is required")
  
 }
